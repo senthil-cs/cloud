@@ -1,16 +1,16 @@
-<html>
-<h1>Azure VM Image Builder is the best service in Azure!!!</h1>
-<h2>Image Builder Links</h2>
-<style>
-body {
-background-color: #93B874
-}
-</style>
-<ol>
-<li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/image-builder-overview?toc=%2fazure%2fvirtual-machines%2fwindows%2ftoc.json">Image Builder Overiew</a></li>
+trigger:
+ - main
 
-<li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/image-builder">Image Builder for Linux</a></li>
+ pool:
+   vmImage: 'windows-latest' 
 
-<li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/image-builder">Image Builder for Windows</a></li>
-</ol>
-</html>
+ variables:
+   imageName: 'pipelines-javascript-docker'
+
+ steps:
+ - task: Docker@2
+   displayName: Build an image
+   inputs:
+     repository: $(imageName)
+     command: build
+     Dockerfile: app/Dockerfile
